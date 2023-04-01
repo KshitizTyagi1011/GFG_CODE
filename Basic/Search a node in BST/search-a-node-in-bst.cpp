@@ -57,7 +57,7 @@ int main() {
 
 // Function to search a node in BST.
 bool search(Node* root, int x) {
-    //Base case
+   /* //Base case
     if(root == NULL) return false;
     if(root->data == x) return true;
     
@@ -68,5 +68,22 @@ bool search(Node* root, int x) {
     
     else{
         return search(root->right,x);
+    }*/
+    
+    //Iterative Approach
+    
+    //Node<int>* temp = root;
+    while(root!=NULL){
+        if(root->data == x){
+            return true;
+        }
+        
+        if(root->data >x){
+            root = root->left;
+        }
+        else{
+            root = root->right;
+        }
     }
+    return false;
 }
