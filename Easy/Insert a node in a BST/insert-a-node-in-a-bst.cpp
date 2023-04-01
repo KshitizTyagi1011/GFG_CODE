@@ -116,6 +116,7 @@ int main() {
 
 // Function to insert a node in a BST.
 Node* insert(Node* root, int Key) {
+    //Base Case
      if(root == NULL){
         root = new Node(Key);
         return root;
@@ -123,6 +124,7 @@ Node* insert(Node* root, int Key) {
     if(Key == root->data){
         return root;
     }
+    
     if(Key > root->data){
         //right part mai insert karo
         root->right = insert(root->right,Key);
