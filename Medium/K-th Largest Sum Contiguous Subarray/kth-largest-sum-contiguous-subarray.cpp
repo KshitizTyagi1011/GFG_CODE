@@ -10,17 +10,33 @@ using namespace std;
 class Solution{
 public:
     int kthLargest(vector<int> &Arr,int N,int K){
-        //Brute Force Approach
-        vector<int>sumStore;
+        // //Brute Force Approach
+        // vector<int>sumStore;
+        // for(int i=0; i<N; i++){
+        //     int sum = 0;
+        //     for(int j=i; j<N; j++){
+        //         sum+=Arr[j];
+        //         sumStore.push_back(sum);
+        //     }
+        // }
+        // sort(sumStore.begin(),sumStore.end());
+        // return sumStore[sumStore.size()-K];
+        
+        priority_queue<int, vector<int>, greater<int>> pq;
         for(int i=0; i<N; i++){
             int sum = 0;
             for(int j=i; j<N; j++){
-                sum+=Arr[j];
-                sumStore.push_back(sum);
+                 sum += Arr[j];
+                 if(pq.size() < K){
+                     pq.push(sum);
+                 }
+                 else if(sum > pq.top()){
+                     pq.pop();
+                     pq.push(sum);
+                 }
             }
-        }
-        sort(sumStore.begin(),sumStore.end());
-        return sumStore[sumStore.size()-K];
+         }
+         return pq.top();
     }
 };
 
