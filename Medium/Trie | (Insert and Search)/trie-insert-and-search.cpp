@@ -96,27 +96,38 @@ struct TrieNode {
 //Function to insert string into TRIE.
 void insert(struct TrieNode *root, string key)
 {
-    TrieNode* curNode = root;
-    for(int i=0; i<key.length(); i++){
-        char cur = key[i];
-        if(curNode->children[cur - 'a'] == NULL){
-            TrieNode* newNode = new TrieNode();
-            curNode->children[cur - 'a'] = newNode;
-        }
-        curNode = curNode->children[cur - 'a'];
-    }
-    curNode->isLeaf = true;
+   //Base case
+   if(key.length() == 0){
+       root->isLeaf = true;
+       return;
+   }
+   int index = key[0] - 'a';
+   TrieNode* child; 
+   if(root->children[index] != NULL){   // present
+       child = root->children[index];
+   }
+   else{  //Absent
+        child = new TrieNode();
+        root->children[index] = child;
+   }
+   //Recursion
+   insert(child, key.substr(1));
 }
 
 //Function to use TRIE data structure and search the given string.
 bool search(struct TrieNode *root, string key) 
 {
-    TrieNode* curNode = root;
-    for(int i=0; i<key.length(); i++){
-        char cur = key[i];
-        if(curNode->children[cur - 'a'] == NULL) return false;
-        curNode = curNode->children[cur - 'a'];
+    if(key.length() == 0){
+       return root->isLeaf;
     }
-    return curNode->isLeaf;
-    
+    int index = key[0] - 'a';
+    TrieNode* child; 
+    if(root->children[index] != NULL){   // present
+       child = root->children[index];
+    }
+    else{  //Absent
+        child = new TrieNode();
+        return false;
+   }
+   return search(child, key.substr(1));
 }
