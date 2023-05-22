@@ -9,16 +9,40 @@ using namespace std;
 
 class Solution
 {
+    int get_max(int arr[], int n){
+        int max = INT_MIN;
+        for(int i=0; i<n; i++){
+            if(arr[i] > max){
+                max = arr[i];
+            }
+        }
+        return max;
+    }
+    
+     int get_min(int arr[], int n){
+        int min = INT_MAX;
+        for(int i=0; i<n; i++){
+            if(arr[i] < min){
+                min = arr[i];
+            }
+        }
+        return min;
+    }
+    
+    
    public:
     int findSum(int A[], int N)
     {
-    	sort(A, A+N);
-    	int i = A[0];
-    	int j = A[N-1];
+    // 	sort(A, A+N);
+    // 	int i = A[0];
+    // 	int j = A[N-1];
     	
-    	int sum = i + j;
-    	return sum;
+    // 	int sum = i + j;
+    // 	return sum;
+    return get_max(A,N) + get_min(A,N);
     }
+    
+    
 
 };
 
