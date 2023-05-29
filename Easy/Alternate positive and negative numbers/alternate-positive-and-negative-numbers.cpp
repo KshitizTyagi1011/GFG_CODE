@@ -21,30 +21,20 @@ public:
                 negative.push_back(arr[i]);
             }
         }
-        int po = 0;
-        int no = 0;
-        for(int i=0; i<n; i++){
-            if(i % 2 == 0){
-                if(no >= positive.size()){
-                arr[i] = negative[po];
-                po++;
-            }else{
-                arr[i] = positive[no];
-                no++;
-            }
+   int i = 0;
+        int j = 0;
+        int k = 0;
+        while(i < positive.size() && j < negative.size()){
+            arr[k++] = positive[i++];
+            arr[k++] = negative[j++];
         }
-        else{
-            if(po >= negative.size()){
-                arr[i] = positive[no];
-                no++;
-            }
-            else{
-                arr[i] = negative[po];
-                po++;
-            }
+        while(i < positive.size()){
+             arr[k++] = positive[i++];
+        }
+         while(j < negative.size()){
+             arr[k++] = negative[j++];
         }
         }
-	}
 };
 
 //{ Driver Code Starts.
