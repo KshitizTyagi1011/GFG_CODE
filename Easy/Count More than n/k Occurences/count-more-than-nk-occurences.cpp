@@ -13,12 +13,7 @@ class Solution
     int countOccurence(int arr[], int n, int k) {
         unordered_map<int,int>mp;
         for(int i=0; i<n; i++){
-            if(mp.find(arr[i]) == mp.end()){
-                mp[arr[i]] = 1;
-            }
-            else{
-                mp[arr[i]]++;
-            }
+            mp[arr[i]]++;
         }
         int ct = 0;
         for(auto x:mp){
