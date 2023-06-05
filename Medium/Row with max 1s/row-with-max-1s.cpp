@@ -7,12 +7,27 @@ using namespace std;
 class Solution{
 public:
 	int rowWithMax1s(vector<vector<int> > arr, int n, int m) {
-	    for(int i=0; i<m; i++){
-	        for(int j=0; j<n; j++){
-	            if(arr[j][i] == 1) return j;
-	        }
-	    }
-	    return -1;
+	    // Brute Force
+	   // for(int i=0; i<m; i++){
+	   //     for(int j=0; j<n; j++){
+	   //         if(arr[j][i] == 1) return j;
+	   //     }
+	   // }
+	   // return -1;
+	   int j = m-1;
+	   int ct = 0;
+	   while(j >= 0 && arr[0][j] == 1){
+	       j--;
+	   }
+	   int row = 0;
+	   for(int i = 1; i < n; i++){
+	       while(j >= 0 && arr[i][j] == 1){
+	           j--;
+	           row = i;
+	       }
+	   }
+	   if(j == m-1) return -1;
+	   return row;
 	}
 
 };
