@@ -8,81 +8,64 @@ using namespace std;
 /*You are required to complete this method*/
 
 class Solution{
-      vector<int> nextSmallerElement(int* arr, int n) 
-    { 
+    vector<int> prev_smaller(vector<int>& a, int n){
+        vector<int>ans(n);
         stack<int>s;
         s.push(-1);
-        vector<int>ans(n);
-        
-        for(int i=n-1; i>=0; i--){
-            int curr = arr[i];
-            while(s.top()!= -1 && arr[s.top()]>=curr){
-                s.pop();
-            }
-            ans[i]=s.top();
-            s.push(i);
-        } 
-        return ans;
-    }
-
-     vector<int> prevSmallerElement(int* arr, int n) 
-    { 
-        stack<int>s;
-        s.push(-1);
-        vector<int>ans(n);
-        
         for(int i=0; i<n; i++){
-            int curr = arr[i];
-            while(s.top()!= -1 && arr[s.top()]>=curr){
-                s.pop();
-            }
-            ans[i]=s.top();
-            s.push(i);
-        }   
-        return ans;
+        while(s.top() != -1 && a[s.top()] >= a[i]){
+            s.pop();
+        }
+        ans[i] = s.top();
+        s.push(i);
+    }
+    return ans;
     }
     
-     int largestRectangleArea(int* heights, int n) {
-
-        vector<int>next(n);
-        next = nextSmallerElement(heights,n);
-
-        vector<int>prev(n);
-        prev = prevSmallerElement(heights,n);
-
-        int area = INT_MIN;
-        for(int i=0; i<n; i++){
-            int l = heights[i];
-            if(next[i]==-1){
-                next[i]=n;
-            }
-            int b = next[i]-prev[i]-1;
-            int newArea = l*b;
-
-            area = max(area,newArea);
+    vector<int> next_smaller(vector<int>& a, int n){
+        vector<int>ans(n);
+        stack<int>s;
+        s.push(-1);
+        for(int i=n-1; i>=0; i--){
+        while(s.top() != -1 && a[s.top()] >= a[i]){
+            s.pop();
         }
-        return area;
+        ans[i] = s.top();
+        s.push(i);
+    }
+    return ans;
+    }
+    
+    int Histogram(vector<int>& arr)
+    {
+        int n = arr.size();
+        vector<int>prev(n);
+        prev = prev_smaller(arr,n);
+        vector<int>next(n);
+        next = next_smaller(arr,n);
+        int maxAns = INT_MIN;
+        for(int i=0; i<n; i++){
+            if(next[i] == -1) next[i] = n;
+            int ans = (next[i] - prev[i] - 1) * arr[i];      //n-p-1 * a[i]
+            maxAns = max(ans, maxAns);
+        }
+        return maxAns;
     }
   public:
     int maxArea(int M[MAX][MAX], int n, int m) {
-        //For first row
-        
-        int area = largestRectangleArea(M[0],m);
-        
-        //for remaining rows
-        for(int i=1; i<n; i++){
+        vector<int>v(m,0);
+        int maxAns = 0;
+        for(int i=0; i<n; i++){
             for(int j=0; j<m; j++){
-                if(M[i][j]!=0)
-                M[i][j]=M[i][j]+M[i-1][j];
-                
-                else
-                M[i][j]=0;
+                if(M[i][j] == 0) v[j] = 0;
+                else v[j] += 1;
             }
-            int newArea = largestRectangleArea(M[i],m);
-            area = max(newArea,area);
-        }
-        return area;
+        int curAns = Histogram(v);
+        maxAns = max(maxAns, curAns);
+      }
+        return maxAns;
     }
+   
 };
 
 
