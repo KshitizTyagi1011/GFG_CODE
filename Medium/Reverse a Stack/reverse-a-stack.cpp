@@ -9,34 +9,26 @@ using namespace std;
 //User function Template for C++
 
 class Solution{
-    void insertAtBottom(stack<int>&s,int x){
-    //base case
-    if(s.empty()){
-        s.push(x);
-        return;
-    }
-
-    int num = s.top();
-    s.pop();
-
-    //recursive call
-    insertAtBottom(s,x);
-    s.push(num);
-}
 public:
     void Reverse(stack<int> &St){
-         //Base Case
-    if(St.empty())
-    return;
-
-    int num = St.top();
-    St.pop();
-
-    //recursive call
-    Reverse(St);
-
-    insertAtBottom(St,num);
+        //Using two stack
+        stack<int>s1;
+        stack<int>s2;
         
+        while(!St.empty()){
+            s1.push(St.top());
+            St.pop();
+        }
+        
+        while(!s1.empty()){
+            s2.push(s1.top());
+            s1.pop();
+        }
+        
+        while(!s2.empty()){
+            St.push(s2.top());
+            s2.pop();
+        }
     }
 };
 
