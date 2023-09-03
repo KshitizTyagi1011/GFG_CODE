@@ -9,15 +9,15 @@ class Solution{
 public:	
 	int matSearch (vector <vector <int>> &mat, int N, int M, int X)
 	{
-	   int row = 0,
-	   col = M-1;
-	   while(row < N && col >= 0){
-	       int cur = mat[row][col];
-	       if(cur == X) return true;
-	       else if(X > cur) row++;
-	       else col--;
-	   }
-	   return false;
+	    int row = 0;
+	    int col = M-1;
+	    while(row < N && col >=0){
+	        int cur = mat[row][col];
+	        if(cur == X) return 1;
+	        else if(cur < X) row++;
+	        else col--;
+	    }
+	    return 0;
 	}
 };
 
