@@ -11,33 +11,19 @@ using namespace std;
 class Solution {
   public:
     int romanToDecimal(string &str) {
+        unordered_map<char,int>mp;
+        mp['I'] = 1;
+        mp['V'] = 5;
+        mp['X'] = 10;
+        mp['L'] = 50;
+        mp['C'] = 100;
+        mp['D'] = 500;
+        mp['M'] = 1000;
+        
         int ans = 0;
-        for(int i=0; i<str.size(); i++){
-            if(str[i] == 'I' and str[i+1] == 'V'){
-            ans+=4;
-            i++;}
-            else if(str[i] == 'I' and str[i+1] == 'X'){
-            ans+=9;
-            i++;}
-            else if(str[i] == 'X' and str[i+1] == 'L'){
-            ans+=40;
-            i++;}
-            else if(str[i] == 'X' and str[i+1] == 'C'){
-            ans+=90;
-            i++;}
-            else if(str[i] == 'C' and str[i+1] == 'D'){
-            ans+=400;
-            i++;}
-            else if(str[i] == 'C' and str[i+1] == 'M'){
-            ans+=900; 
-            i++;}
-            else if(str[i] == 'I') ans+=1;
-            else if(str[i] == 'V') ans+=5;
-            else if(str[i] == 'X') ans+=10;
-            else if(str[i] == 'L') ans+=50;
-            else if(str[i] == 'C') ans+=100;
-            else if(str[i] == 'D') ans+=500;
-            else if(str[i] == 'M') ans+=1000;
+        for(int i=0; i<str.length(); i++){
+            if(mp[str[i]] < mp[str[i+1]]) ans -= mp[str[i]];
+            else ans += mp[str[i]];
         }
         return ans;
     }
