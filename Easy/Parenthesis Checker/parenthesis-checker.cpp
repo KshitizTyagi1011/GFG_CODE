@@ -11,30 +11,31 @@ class Solution
     //Function to check if brackets are balanced or not.
     bool ispar(string x)
     {
-        stack<char>st;
-        for(char ch : x){
-            if(ch == '(' || ch == '{' || ch == '['){
-                st.push(ch);
+        stack<char>s;
+        for(int i=0; i<x.length(); i++){
+            char ch = x[i];
+            if(ch == '{' || ch == '(' || ch == '['){
+                s.push(ch);
             }
-            else{        //for lose brackets
-                if(!st.empty()){
-                    char top = st.top();
-                    
-                    if((ch == ')' && top == '(') || 
-                    (ch == '}' && top == '{') || 
-                    (ch == ']' && top == '['))
-                    {
-                        st.pop();
+            else{
+                if(!s.empty()){
+                    char top = s.top();
+                    if((ch == '}' && top == '{') || 
+                    (ch == ']' && top == '[') || 
+                    (ch == ')' && top == '(')){
+                        s.pop();
                     }
                     else{
                         return false;
                     }
                 }
-                else return false;
+                else{
+                    return false;
+                }
             }
         }
-        if(st.empty()) return true;
-        else return false;
+        if(s.empty()) return true;
+        return false;
     }
 
 };
