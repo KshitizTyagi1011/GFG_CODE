@@ -9,26 +9,25 @@ using namespace std;
 
 class Solution
 {
-    void solve(stack<int>&s,int ct, int sizeOfStack){
+    void solve(stack<int>&s, int sizeOfStack, int ct){
         //base case
         if(ct == sizeOfStack/2){
             s.pop();
             return;
         }
-         int num = s.top();
-         s.pop();
-         
-         //Recursive call
-         solve(s, ct+1, sizeOfStack);
-         s.push(num);
-         
+        
+        int num = s.top();
+        s.pop();
+        //Recursive call
+        solve(s,sizeOfStack,ct+1);
+        s.push(num);
     }
     public:
     //Function to delete middle element of a stack.
     void deleteMid(stack<int>&s, int sizeOfStack)
     {
-        int ct = 0;
-        solve(s,ct,sizeOfStack);
+         int ct = 0;
+         solve(s,sizeOfStack,ct);
     }
 };
 
